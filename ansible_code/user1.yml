@@ -1,0 +1,9 @@
+---
+ - hosts:group1
+   become: true
+   vars_files:
+    - userpar.yml
+
+   tasks:
+     - name: creating users
+       user: name={{ user_name }} password={{  }}

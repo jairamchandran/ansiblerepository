@@ -1,0 +1,10 @@
+---
+ - hosts: localhost
+   become: true
+   vars:
+     port_number=8080
+     server_port = "ServerName localhost:8080
+
+   tasks:
+     - name: change httpd.conf using lineinfile module
+       

@@ -1,0 +1,19 @@
+---
+ - hosts: group1
+   become: true
+   tasks:
+      - name: create new group
+        group: name=ansgroup3 state=present
+        register: group_output
+
+      - name: create new user
+        user: name=ansuser3 group=ansgroup3 state=present
+        register: user_output
+      
+      - debug: var=group_output
+        #when: group_output|success
+
+      - name: Installing httpd
+        yum: name=httpd state=installed
+        when: group_output|success and user_output|success
+        

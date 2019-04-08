@@ -1,0 +1,16 @@
+---
+ - hosts: localhost
+   become: true
+   vars:
+     port_number: 8080
+     server_port: "localhost:8080"
+   tasks:
+     - name: change httpd conf
+       #copy: src=/etc/httpd/conf/httpd.conf dest=/etc/httpd/conf/httpd.conf.bkp
+       template: src=/var/tmp/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+       notify: restart_httpd
+
+   handlers:
+     - name: restart_httpd
+       service: name=httpd enabled=yes state=restarted
+

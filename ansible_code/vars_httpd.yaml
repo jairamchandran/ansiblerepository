@@ -1,0 +1,21 @@
+---
+ - hosts: group1
+   become: true
+   vars:
+     PkgName: "{{install_pkg}}"
+     ServiceName: "{{service_name}}"
+   tasks:
+     - name: install httpd
+       yum: name={{ PkgName }} state=present
+      
+     - name: start httpd service
+       service: name={{ ServiceName }} enabled=yes state=started
+
+     - name: creating index.html
+       copy: src=/var/tmp/index.html dest=/var/www/html/
+       notify:
+         - httpd_restart
+      
+   handlers:
+     - name: "httpd_restart"
+       service: name={{ ServiceName }} state=restarted

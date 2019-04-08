@@ -1,0 +1,13 @@
+---
+ - hosts: localhost
+   become: true
+   tasks:
+     - name: install httpd
+       yum: name=httpd state=present
+       register: http_install
+
+     - debug: var=http_install
+
+     - name: start httpd service
+       service: name=httpd enabled=yes state=started 
+ 
