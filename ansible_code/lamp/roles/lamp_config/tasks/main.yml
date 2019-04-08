@@ -1,0 +1,4 @@
+---
+ - name: configure httpd
+   template: src=welcome.conf.j2 dest=/etc/httpd/conf.d/welcome.conf
+   notify: httpd_restart

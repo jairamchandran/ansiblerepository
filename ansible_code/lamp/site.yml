@@ -1,0 +1,14 @@
+---
+ - name: Install lamp
+   hosts: otherhosts 
+   become: true
+   roles: 
+    - role: lamp_install
+
+ - name: configure httpd
+   hosts: otherhosts
+   become: true
+   roles:
+    - role: lamp_config
+   
+
